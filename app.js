@@ -7,6 +7,7 @@ import userRoutes from './routes/user.js';
 import productRoutes from './routes/product.js';
 import cartRoutes from './routes/cart.js';
 import orderRoutes from './routes/order.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/product', productRoutes);
 app.use('/api/v1/cart', cartRoutes);
 app.use('/api/v1/order', orderRoutes);
+
+app.use('/uploads', express.static(path.resolve('uploads')));
 
 dbConnection();
 
