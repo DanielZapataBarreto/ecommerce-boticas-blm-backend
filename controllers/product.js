@@ -18,7 +18,7 @@ export const getAllProducts = async (req, res) => {
     }
     res.status(200).json(products);
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).json(`${error.message}`);
   }
 };
 
@@ -27,12 +27,10 @@ export const getProduct = async (req, res) => {
   try {
     const product = await Product.findById(id);
     !product &&
-      res.status(401).send({
-        message: `No se encontró ningún producto con id: ${id}`,
-      });
+      res.status(401).json(`No se encontró ningún producto con id: ${id}`);
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).json(`${error.message}`);
   }
 };
 
@@ -42,7 +40,7 @@ export const createProduct = async (req, res) => {
     const savedProduct = await newProduct.save();
     res.status(200).json(savedProduct);
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).json(`${error.message}`);
   }
 };
 
@@ -59,7 +57,7 @@ export const updateProduct = async (req, res) => {
     );
     res.status(200).json(updatedProduct);
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).json(`${error.message}`);
   }
 };
 
@@ -67,8 +65,8 @@ export const deleteProduct = async (req, res) => {
   const { id } = req.params;
   try {
     await Product.findByIdAndDelete(id);
-    res.status(200).send({ message: 'El producto se ha eliminado' });
+    res.status(200).json({ message: 'El producto se ha eliminado' });
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).json(`${error.message}`);
   }
 };

@@ -18,7 +18,7 @@ export const register = async (req, res) => {
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).json(`${error.message}`);
   }
 };
 
@@ -27,14 +27,11 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email: body.email });
     !user &&
-      res.status(401).send({
-        message: `No se encontró ningún usuario con correo: ${body.email}`,
-      });
+      res
+        .status(401)
+        .json(`No se encontró ningún usuario con correo: ${body.email}`);
     const matched = await bcrypt.compare(body.password, user.password);
-    !matched &&
-      res.status(401).send({
-        message: 'Contraseña incorrecta',
-      });
+    !matched && res.status(401).json('Contraseña incorrecta');
     const accessToken = jwt.sign(
       {
         id: user._id,
@@ -48,6 +45,6 @@ export const login = async (req, res) => {
     const { password, ...others } = user._doc;
     res.status(200).json({ ...others, accessToken });
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).json(`${error.message}`);
   }
 };
