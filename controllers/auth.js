@@ -48,3 +48,14 @@ export const login = async (req, res) => {
     res.status(500).json(`${error.message}`);
   }
 };
+
+export const autoLogin = async (req, res) => {
+  const { body } = req;
+  try {
+    const user = await User.findById(body.id);
+    const { password, ...others } = user._doc;
+    res.status(200).json({ ...others });
+  } catch (error) {
+    res.status(500).json(`${error.message}`);
+  }
+};

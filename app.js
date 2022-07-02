@@ -23,7 +23,7 @@ app.use('/api/v1/product', productRoutes);
 app.use('/api/v1/cart', cartRoutes);
 app.use('/api/v1/order', orderRoutes);
 
-app.use('/uploads', express.static(path.resolve('uploads')));
+app.use('/api/v1/uploads', express.static(path.resolve('uploads')));
 
 dbConnection();
 
