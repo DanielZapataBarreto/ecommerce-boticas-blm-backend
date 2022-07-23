@@ -29,4 +29,5 @@ dbConnection();
 
 app.listen(PORT, () => {
   console.log(`App is listening on port: ${PORT}, http://localhost:${PORT}`);
+  console.log('Ready to receive requests');
 });
