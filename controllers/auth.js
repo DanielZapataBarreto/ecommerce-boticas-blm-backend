@@ -15,6 +15,9 @@ export const register = async (req, res) => {
     address: body.address,
   });
   try {
+    const existingEmail = await User.findOne({ email: body.email });
+    const existingDni = await User.findOne({ dni: body.dni });
+    (existingEmail || existingDni) && res.status(401).json(`Ya existe un usuario con correo: ${body.email} o DNI: ${body.dni}`)
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (error) {
