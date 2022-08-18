@@ -18,8 +18,8 @@ export const createPayment = (req, res) => {
       brand_name: `Boticas BLM`,
       landing_page: "NO_PREFERENCE",
       user_action: "PAY_NOW",
-      return_url: `http://localhost:4201/api/v1/payment/execute-payment`,
-      cancel_url: `http://localhost:4200`,
+      return_url: `https://botica-blm-backend.herokuapp.com/api/v1/payment/execute-payment`,
+      cancel_url: `https://botica-blm-frontend.web.app/`,
     },
   };
 
@@ -47,7 +47,7 @@ export const executePayment = (req, res) => {
       json: true,
     },
     (err, response) => {
-      res.redirect("http://localhost:4200/success");
+      res.redirect("https://botica-blm-frontend.web.app/success");
     }
   );
 };
